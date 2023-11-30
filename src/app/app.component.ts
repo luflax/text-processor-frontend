@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { GraphRender } from './graph';
+import { environment } from '../environment/environment';
 
 @Component({
   selector: 'app-root',
@@ -38,22 +39,22 @@ export class AppComponent implements OnInit, AfterViewInit {
   loadGraph(visualizationType: string) {
     switch (visualizationType) {
       case "TOP_3":
-        this.http.get<any>("http://localhost:8081/api/graphs/topWords?fileName=" + this.fileName + "&numberOfWords=3").subscribe(data => {
+        this.http.get<any>(environment.apiUrl + "/api/graphs/topWords?fileName=" + this.fileName + "&numberOfWords=3").subscribe(data => {
           GraphRender.loadGraph(this.svg.nativeElement, data);
         });
         break;
       case "TOP_10":
-        this.http.get<any>("http://localhost:8081/api/graphs/topWords?fileName=" + this.fileName + "&numberOfWords=10").subscribe(data => {
+        this.http.get<any>(environment.apiUrl + "/api/graphs/topWords?fileName=" + this.fileName + "&numberOfWords=10").subscribe(data => {
           GraphRender.loadGraph(this.svg.nativeElement, data);
         });
         break;
       case "ALL_WORDS":
-        this.http.get<any>("http://localhost:8081/api/graphs?fileName=" + this.fileName).subscribe(data => {
+        this.http.get<any>(environment.apiUrl + "/api/graphs?fileName=" + this.fileName).subscribe(data => {
           GraphRender.loadGraph(this.svg.nativeElement, data);
         });
         break;
       case "COAUTORIA":
-        this.http.get<any>("http://localhost:8081/api/graphs/coautoria").subscribe(data => {
+        this.http.get<any>(environment.apiUrl + "/api/graphs/coautoria").subscribe(data => {
           GraphRender.loadGraph(this.svg.nativeElement, data);
         });
         break;
